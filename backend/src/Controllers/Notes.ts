@@ -77,20 +77,79 @@ export const CreateNote: RequestHandler<unknown , unknown , createNodeBody , unk
 
 
 // Route to delete a note by ID
+// Request handler for deleting a note by ID
 export const DeleteNote: RequestHandler = async (req, res, next) => {
   try {
     const noteId = req.params.noteId;
+
+    // Check if the provided note ID is a valid ObjectId
+    if (!mongoose.isValidObjectId(noteId)) {
+      throw createHttpError(400, 'Invalid Note Id, please provide a correct object id.');
+    }
 
     // Find and delete the note by ID
     const deletedNote = await NoteModel.findByIdAndRemove(noteId).exec();
 
     if (!deletedNote) {
       // If the note is not found, return a 404 status
-      return res.status(404).json({ error: 'Note not found' });
+      throw createHttpError(404, 'Note not found');
     }
 
     // Respond with a success message or the deleted note
     res.json({ message: 'Note deleted successfully', deletedNote });
+  } catch (error) {
+    // Pass the error to the error-handling middleware
+    next(error);
+  }
+};
+
+
+
+interface updatenoteParams{
+     noteId : string,
+}
+// Define the request body interface
+interface UpdateNoteBody {
+  title: string;
+  text: string;
+}
+
+// Request handler for updating a note
+export const UpdateNote: RequestHandler<updatenoteParams, unknown, UpdateNoteBody, unknown> = async (req, res, next) => {
+  try {
+    // Extract parameters from the request
+    const noteId = req.params.noteId;
+    const { title, text } = req.body;
+
+    // Check if the provided note ID is a valid ObjectId
+    if (!mongoose.isValidObjectId(noteId)) {
+      throw createHttpError(400, 'Invalid Note Id, please provide a correct object id.');
+    }
+
+    // Check if either title or text is provided for update
+    if (!title && !text) {
+      throw createHttpError(400, 'You must provide at least one field (title or text) for update.');
+    }
+
+    // Find the note by ID
+    const note = await NoteModel.findById(noteId);
+
+    if (!note) {
+      throw createHttpError(404, 'Note not found.');
+    }
+
+    // Update the note properties if provided
+    if (title) {
+      note.title = title;
+    }
+    if (text) {
+      note.text = text;
+    }
+
+    // Save the updated note
+    const updatedNote = await note.save();
+
+    res.json(updatedNote);
   } catch (error) {
     // Pass the error to the error-handling middleware
     next(error);

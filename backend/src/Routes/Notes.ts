@@ -8,6 +8,7 @@ router.get('/', NotesController.GetNotes);
 router.get('/:noteId', NotesController.GetNote);
 router.post('/', NotesController.CreateNote);
 router.delete('/:noteId', NotesController.DeleteNote);
+router.patch('/:noteId', NotesController.UpdateNote);
 
 
  export default router;
