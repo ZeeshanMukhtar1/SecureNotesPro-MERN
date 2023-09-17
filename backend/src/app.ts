@@ -1,35 +1,43 @@
 import 'dotenv/config';
 import express, { Request, Response, NextFunction } from 'express';
 import NotesRoutes from './Routes/Notes';
- import morgan from 'morgan';
+import morgan from 'morgan';
+import createHttpError, { HttpError, isHttpError } from 'http-errors'; 
 
 const app = express();
 
-// using morgon pkg for logging the http logs
-app.use(morgan("dev"));
+// Using the morgan package for logging HTTP logs
+app.use(morgan('dev'));
 
-
-// accept data in json format
+// Accept data in JSON format
 app.use(express.json());
 
-// adding prefixes and forwording to route
-app.use("/api/notes", NotesRoutes);
+// Adding prefixes and forwarding to routes
+app.use('/api/notes', NotesRoutes);
 
 // Error-handling middleware for unknown routes
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-app.use((req: Request, res: Response, next: NextFunction) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const error = new Error('Route not found');
-  res.status(404).json({ error: 'Endpoint not found' });
+app.use((req, res, next) => {
+  const error: HttpError = createHttpError(404, 'Endpoint not found...!');
+  next(error);
 });
 
 // Error-handling middleware
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-app.use((error: unknown, req: Request, res: Response, next: NextFunction) => {
+app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
   console.error(error);
 
+  let errorMessage = 'An error occurred..!';
+  let statusCode = 404; // fallback status code
+
+  if (isHttpError(error)) {
+    // If it's an HTTP error created by http-errors package, extract status and message
+    statusCode = error.status;
+    errorMessage = error.message;
+  }
+
   // Handle the error and send an error response
-  res.status(500).json({ error: 'Internal Server Error' });
+  res.status(statusCode).json({ error: errorMessage });
 });
 
 export default app;
+
