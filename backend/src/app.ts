@@ -1,20 +1,19 @@
 import 'dotenv/config';
 import express, { Request, Response, NextFunction } from 'express';
-const app = express();
-import NoteModel from './Models/Note';
+import NotesRoutes from './Routes/Notes';
+ import morgan from 'morgan';
 
-// Route to get all notes
-app.get('/', async (req, res, next) => {
-  try {
-    // Retrieve notes from the database
-    const notes = await NoteModel.find().exec();
-    res.send(notes);
-  } catch (error) {
-    // Pass the error to the error-handling middleware
-    next(error);
-     // now i will use next(error) everywhere in my code
-  }
-});
+const app = express();
+
+// using morgon pkg for logging the http logs
+app.use(morgan("dev"));
+
+
+// accept data in json format
+app.use(express.json());
+
+// adding prefixes and forwording to route
+app.use("/api/notes", NotesRoutes);
 
 // Error-handling middleware for unknown routes
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
