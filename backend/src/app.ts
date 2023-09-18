@@ -3,9 +3,13 @@ import express, { Request, Response, NextFunction } from 'express';
 import NotesRoutes from './Routes/Notes';
 import morgan from 'morgan';
 import createHttpError, { HttpError, isHttpError } from 'http-errors'; 
+import cors from 'cors';
 
 const app = express();
 
+
+// Use CORS middleware
+app.use(cors());
 // Using the morgan package for logging HTTP logs
 app.use(morgan('dev'));
 

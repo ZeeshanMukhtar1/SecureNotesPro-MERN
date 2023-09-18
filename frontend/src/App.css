@@ -1,0 +1,12 @@
+li {
+    background-color: #f3f3f3;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px 0;
+    list-style-type: none;
+    /* Remove bullet points */
+}
+
+h1 {
+    text-align: center;
+}
