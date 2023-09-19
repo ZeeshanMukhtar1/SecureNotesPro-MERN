@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import './App.css'; // Import the CSS file
 import { Note } from './Models/Note';
+import { Button } from 'react-bootstrap';
 
 function App() {
   const [notes, setNotes] = React.useState<Note[]>([]);
@@ -43,8 +44,10 @@ function App() {
               <p>Created At: {note.createdAt}</p>
               <p>Updated At: {note.updatedAt}</p>
             </li>
+            
           ))}
         </ul>
+           <Button variant="primary">Click me</Button>
       </div>
     </>
   );
