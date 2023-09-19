@@ -1,10 +1,16 @@
 import React, { useEffect } from 'react';
 import './App.css'; // Import the CSS file
-import { Note } from './Models/Note';
-import { Button } from 'react-bootstrap';
+// import { Note } from './Models/Note';
+import Note from './components/Note';
+import {Col, Container, Row } from 'react-bootstrap';
+import styles from "./styles/NotesPage.module.css";
+import { Note as NoteModel } from './models/note';
+
+
+
 
 function App() {
-  const [notes, setNotes] = React.useState<Note[]>([]);
+  const [notes, setNotes] = React.useState<NoteModel[]>([]);
 
   useEffect(() => {
     // Define a function to fetch notes from the backend
@@ -34,21 +40,15 @@ function App() {
 
   return (
     <>
-      <div className='App'>
-        <h1>Notes</h1>
-        <ul>
-          {notes.map((note) => (
-            <li key={note._id}>
-              <h2>{"Note Title: " + note.title}</h2>
-              <p>{"Note Text : " + note.text}</p>
-              <p>Created At: {note.createdAt}</p>
-              <p>Updated At: {note.updatedAt}</p>
-            </li>
-            
-          ))}
-        </ul>
-           <Button variant="primary">Click me</Button>
-      </div>
+   <Container>
+      <Row xs={1} md={2} xl={3} className="g-4">
+        {notes.map(note => (
+          <Col key={note._id}>
+            <Note note={note} className={styles.note} />
+          </Col>
+        ))}
+      </Row>
+    </Container>
     </>
   );
 }
