@@ -32,6 +32,17 @@ const Note = ({
     createdUpdatedText = 'Created: ' + formatDate(createdAt);
   }
 
+  // Function to handle the delete button click
+  const handleDeleteClick = () => {
+    // Show a confirmation dialog before deleting
+    const confirmDelete = window.confirm(
+      'Are you sure you want to delete this note?',
+    );
+
+    if (confirmDelete) {
+      onDeleteNoteClicked(note);
+    }
+  };
   return (
     // Render the Note component using Card from react-bootstrap
     <Card
@@ -52,7 +63,7 @@ const Note = ({
             className="ms-auto"
             onClick={(e) => {
               // Handle the onDeleteNoteClicked event when the delete icon is clicked
-              onDeleteNoteClicked(note);
+              handleDeleteClick();
               e.stopPropagation();
             }}
           />
