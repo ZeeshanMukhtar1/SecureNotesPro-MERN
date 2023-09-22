@@ -11,10 +11,16 @@ interface NoteProps {
   note: NoteModel;
   className?: string;
   onDeleteNoteClicked: (note: NoteModel) => void;
+  onNoteClicked?: (note: NoteModel) => void;
 }
 
 // Note component definition
-const Note = ({ note, className, onDeleteNoteClicked }: NoteProps) => {
+const Note = ({
+  note,
+  className,
+  onDeleteNoteClicked,
+  onNoteClicked,
+}: NoteProps) => {
   // Destructure properties from the note object
   const { title, text, createdAt, updatedAt } = note;
 
@@ -28,7 +34,15 @@ const Note = ({ note, className, onDeleteNoteClicked }: NoteProps) => {
 
   return (
     // Render the Note component using Card from react-bootstrap
-    <Card className={`${styles.noteCard} ${className}`}>
+    <Card
+      className={`${styles.noteCard} ${className}`}
+      onClick={() => {
+        // Ensure that onNoteClicked is defined before calling it
+        if (onNoteClicked) {
+          onNoteClicked(note);
+        }
+      }}
+    >
       <Card.Body className={styles.cardBody}>
         {/* Display the title */}
         <Card.Title className={stylesUtils.flex__Center}>
