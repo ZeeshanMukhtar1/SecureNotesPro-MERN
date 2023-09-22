@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Col, Container, Row, Spinner } from 'react-bootstrap';
+import { Button, Col, Container, Row } from 'react-bootstrap';
 import { Note as NoteModel } from './models/note';
 import Note from './components/Note';
 import styles from './styles/NotesPage.module.css';
@@ -7,13 +7,16 @@ import styleUtils from './styles/utils.module.css';
 import * as NotesApi from './network/notes_api';
 import AddNoteDialog from './components/AddEditNoteDialog';
 import { BsPlusCircleDotted } from 'react-icons/bs';
+// Import PacmanLoader
+import PacmanLoader from 'react-spinners/PacmanLoader';
+import { CSSProperties } from 'react';
 
 function App() {
   // State for storing notes and controlling dialogs
   const [notes, setNotes] = useState<NoteModel[]>([]);
   const [showAddNoteDialog, setShowAddNoteDialog] = useState(false);
   const [NoteToEdit, setNoteToEdit] = useState<NoteModel | null>(null);
-  const [NotesLoading, setNotesLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const [showNotesLoadingError, setShowNotesLoadingError] = useState(false);
 
   // Function to load notes from the server
@@ -21,14 +24,14 @@ function App() {
     async function loadNotes() {
       try {
         setShowNotesLoadingError(false);
-        setNotesLoading(true);
+        setLoading(true); // Start loading
         const notes = await NotesApi.fetchNotes();
         setNotes(notes);
       } catch (error) {
         console.error(error);
         setShowNotesLoadingError(true);
       } finally {
-        setNotesLoading(false);
+        setLoading(false); // Finish loading
       }
     }
     loadNotes();
@@ -63,6 +66,13 @@ function App() {
     </Row>
   );
 
+  // Custom CSS properties for PacmanLoader
+  const override: CSSProperties = {
+    // display: 'block',
+    // margin: '0 auto',
+    // borderColor: 'red',
+  };
+
   return (
     <Container>
       {/* Button to open the "Add new note" dialog */}
@@ -75,13 +85,33 @@ function App() {
       </Button>
 
       {/* Displaying notes in a responsive grid */}
-      {NotesLoading ? (
-        <p>Loading...</p>
-      ) : showNotesLoadingError ? (
-        <p>Error loading notes. Please try again.</p>
-      ) : (
-        NotesGrid
-      )}
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: '100vh',
+          marginTop: '-50px',
+        }}
+      >
+        {loading ? (
+          <PacmanLoader
+            color="#36d7b7"
+            loading={loading}
+            size={45}
+            margin={2}
+            cssOverride={override}
+            aria-label="Loading Spinner"
+            data-testid="loader"
+            speedMultiplier={1.5}
+          />
+        ) : showNotesLoadingError ? (
+          <p>Error loading notes. Please try again.</p>
+        ) : (
+          NotesGrid
+        )}
+      </div>
 
       {/* Dialog for adding a new note */}
       {showAddNoteDialog && (
