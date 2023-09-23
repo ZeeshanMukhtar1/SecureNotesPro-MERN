@@ -11,6 +11,13 @@ import PacmanLoader from 'react-spinners/PacmanLoader';
 import { CSSProperties } from 'react';
 import NotFoundPage from './Db-err/NotFoound';
 
+// Import Notification components from react-notifications
+import {
+  NotificationContainer,
+  NotificationManager,
+} from 'react-notifications';
+import 'react-notifications/lib/notifications.css';
+
 function App() {
   // State for storing notes and controlling dialogs
   const [notes, setNotes] = useState<NoteModel[]>([]);
@@ -44,9 +51,12 @@ function App() {
       setNotes((prevNotes) =>
         prevNotes.filter((existingNote) => existingNote._id !== note._id),
       );
+      // Show a success notification on successful deletion
+      NotificationManager.success('Note deleted successfully');
     } catch (error) {
       console.error(error);
-      alert(error);
+      // Show an error notification on deletion error
+      NotificationManager.error('Error deleting note');
     }
   };
 
@@ -119,6 +129,8 @@ function App() {
           onNoteSaved={(newNote: NoteModel) => {
             setNotes([...notes, newNote]);
             setShowAddNoteDialog(false);
+            // Show a success notification on successful addition
+            NotificationManager.success('Note added successfully');
           }}
         />
       )}
@@ -137,9 +149,14 @@ function App() {
               ),
             );
             setNoteToEdit(null);
+            // Show a success notification on successful edit
+            NotificationManager.success('Note updated successfully');
           }}
         />
       )}
+
+      {/* Notification container for displaying notifications */}
+      <NotificationContainer />
     </Container>
   );
 }
