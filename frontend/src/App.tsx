@@ -9,6 +9,7 @@ import AddNoteDialog from './components/AddEditNoteDialog';
 import { BsPlusCircleDotted } from 'react-icons/bs';
 import PacmanLoader from 'react-spinners/PacmanLoader';
 import { CSSProperties } from 'react';
+import NotFoundPage from './Db-err/NotFoound';
 
 function App() {
   // State for storing notes and controlling dialogs
@@ -92,7 +93,7 @@ function App() {
         ) : showNotesLoadingError ? (
           <p>Error loading notes. Please try again.</p>
         ) : notes.length === 0 ? (
-          <p>No notes found. Please add some notes.</p>
+          <NotFoundPage />
         ) : (
           // Display notes in a responsive grid
           <Row xs={1} md={2} xl={3} className="g-4">
