@@ -1,6 +1,6 @@
 # Secured Notes Pro (MERN App)
 
-Secured Notes Pro is a web application built using the MERN stack (MongoDB, Express.js, React, and Node.js). This application allows users to securely create and manage their notes. It provides a user-friendly interface, robust security features, and a pleasant user experience.
+Secure Notes Pro is a web application built using the MERN stack (MongoDB, Express.js, React, and Node.js). This application allows users to securely create and manage their notes. It provides a user-friendly interface, robust security features, and a pleasant user experience.
 
 ## Features
 
@@ -12,7 +12,7 @@ Secured Notes Pro is a web application built using the MERN stack (MongoDB, Expr
 
 ## Backend Dependencies
 
-The backend of Secured Notes Pro relies on several npm packages to function properly:
+The backend of Secure Notes Pro relies on several npm packages to function properly:
 
 - `express`: Fast, unopinionated, minimalist web framework for Node.js.
 - `mongoose`: Elegant MongoDB object modeling for Node.js.
@@ -25,7 +25,7 @@ The backend of Secured Notes Pro relies on several npm packages to function prop
 
 ## Frontend Dependencies
 
-The frontend of Secured Notes Pro relies on the following packages:
+The frontend of Secure Notes Pro relies on the following packages:
 
 - `react`: A JavaScript library for building user interfaces.
 - `react-bootstrap`: Bootstrap components built with React.
@@ -42,7 +42,7 @@ The frontend of Secured Notes Pro relies on the following packages:
 
 ## Usage
 
-To use Secured Notes Pro, follow these steps:
+To use Secure Notes Pro, follow these steps:
 
 1. **Clone the repository**:
 
