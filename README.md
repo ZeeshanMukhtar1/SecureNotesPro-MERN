@@ -4,7 +4,6 @@ Secured Notes Pro is a web application built using the MERN stack (MongoDB, Expr
 
 ## Features
 
-- **User Authentication**: Users can create accounts securely and log in to manage their notes.
 - **Create and Manage Notes**: Users can securely create, edit, and delete their notes.
 - **Secure Storage**: Notes are stored securely in the MongoDB database.
 - **Error Handling**: Comprehensive error handling using various npm packages.
@@ -34,6 +33,12 @@ The frontend of Secured Notes Pro relies on the following packages:
 - `@types/react`: Type definitions for React.
 - `@types/react-bootstrap`: Type definitions for React Bootstrap.
 - `@types/react-dom`: Type definitions for React DOM.
+- `@types/node-sass`: Type definitions for Node.js SASS support.
+- `react-notifications`: library for displaying beautiful notifications on actions.
+
+## Project Demo
+
+![empty Databse video](./frontend/public/screen-capture.gif 'empty Databse video')
 
 ## Usage
 
@@ -63,7 +68,9 @@ To use Secured Notes Pro, follow these steps:
 4. **Create a `.env` file** in the `backend` directory and add your environment variables (e.g., MongoDB connection string).
 
    ```env
-   MONGODB_URI=your-mongodb-connection-string
+   Mongo__connection__String=your-mongodb-connection-string
+   PORT = 5000
+
    ```
 
 5. **Start the development server**:
@@ -84,3 +91,10 @@ To use Secured Notes Pro, follow these steps:
 
 - **Zeeshan Mukhtar**
 
+## 🔗 Links
+
+[![portfolio](https://img.shields.io/badge/my_portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://zeeshan-resume.netlify.app/)
+[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/zeeshanmukhtar1/)
+[![twitter](https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/ZeshanMukhtar01)
+[![instagram](https://img.shields.io/badge/instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white)](https://www.instagram.com/zeshanmukhtar01/)
+[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ZeeshanMukhtar1)
