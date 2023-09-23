@@ -7,7 +7,6 @@ import styleUtils from './styles/utils.module.css';
 import * as NotesApi from './network/notes_api';
 import AddNoteDialog from './components/AddEditNoteDialog';
 import { BsPlusCircleDotted } from 'react-icons/bs';
-// Import PacmanLoader
 import PacmanLoader from 'react-spinners/PacmanLoader';
 import { CSSProperties } from 'react';
 
@@ -50,22 +49,6 @@ function App() {
     }
   };
 
-  const NotesGrid = (
-    <Row xs={1} md={2} xl={3} className="g-4">
-      {notes.map((note) => (
-        <Col key={note._id}>
-          {/* Render each note component */}
-          <Note
-            note={note}
-            className={styles.note}
-            onNoteClicked={setNoteToEdit}
-            onDeleteNoteClicked={deleteNote}
-          />
-        </Col>
-      ))}
-    </Row>
-  );
-
   // Custom CSS properties for PacmanLoader
   const override: CSSProperties = {
     // display: 'block',
@@ -84,7 +67,7 @@ function App() {
         Add new note
       </Button>
 
-      {/* Displaying notes in a responsive grid */}
+      {/* Display notes or a message if no notes are available */}
       <div
         style={{
           display: 'flex',
@@ -108,8 +91,23 @@ function App() {
           />
         ) : showNotesLoadingError ? (
           <p>Error loading notes. Please try again.</p>
+        ) : notes.length === 0 ? (
+          <p>No notes found. Please add some notes.</p>
         ) : (
-          NotesGrid
+          // Display notes in a responsive grid
+          <Row xs={1} md={2} xl={3} className="g-4">
+            {notes.map((note) => (
+              <Col key={note._id}>
+                {/* Render each note component */}
+                <Note
+                  note={note}
+                  className={styles.note}
+                  onNoteClicked={setNoteToEdit}
+                  onDeleteNoteClicked={deleteNote}
+                />
+              </Col>
+            ))}
+          </Row>
         )}
       </div>
 
